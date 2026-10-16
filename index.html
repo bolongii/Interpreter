@@ -10,26 +10,29 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#FAF6EB">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@1,700;1,800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F1EEE3;
-    --paper-deep:#E6E0CF;
-    --ink:#211F1B;
-    --ink-soft:#5B5750;
+    --paper:#FFFDF8;
+    --paper-deep:rgba(255,253,246,0.62);
+    --ink:#2A2622;
+    --ink-soft:#675F55;
     --seal:#A63446;
     --seal-deep:#7E2634;
     --jade:#455C50;
     --gold:#B8935A;
-    --sakura:#E3B6BC;
-    --sakura-deep:#C98894;
-    --line: rgba(33,31,27,0.14);
+    --sakura:#F7C6D3;
+    --sakura-deep:#EFA3BA;
+    --brand-a:#6F7FCB;
+    --brand-b:#9C86D8;
+    --line: rgba(120,100,70,0.16);
     --radius: 2px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; background:#FAF6EB;}
   body{
-    background:var(--paper);
+    background:linear-gradient(170deg, #FDFBF5 0%, #FAF6EB 45%, #F6F0E1 100%);
     color:var(--ink);
     font-family:'Noto Sans KR', sans-serif;
     line-height:1.7;
@@ -41,30 +44,35 @@
   .sakura-wash{
     position:fixed; inset:0; z-index:0; pointer-events:none;
     background:
-      radial-gradient(420px 300px at 8% 6%, rgba(227,182,188,0.30), transparent 70%),
-      radial-gradient(360px 260px at 92% 14%, rgba(201,136,148,0.22), transparent 70%),
-      radial-gradient(320px 240px at 78% 88%, rgba(227,182,188,0.18), transparent 70%),
-      radial-gradient(260px 200px at 4% 82%, rgba(201,136,148,0.14), transparent 70%);
+      radial-gradient(460px 340px at 6% 4%, rgba(236,220,186,0.40), transparent 72%),
+      radial-gradient(400px 300px at 94% 12%, rgba(255,255,255,0.70), transparent 72%),
+      radial-gradient(380px 280px at 80% 92%, rgba(247,198,211,0.16), transparent 72%),
+      radial-gradient(320px 240px at 2% 84%, rgba(226,208,170,0.30), transparent 72%);
   }
   .petals{ position:fixed; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
   .petal{
-    position:absolute; top:-6%;
-    background: var(--sakura);
-    border-radius: 0 60% 0 60%;
-    box-shadow: inset -1px -1px 3px rgba(126,38,52,0.10);
-    animation-name: sakura-fall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    opacity:0.4;
+    position:absolute; top:0; left:var(--left, 50%);
+    width:var(--size, 14px); height:var(--size, 14px);
+    background-size:contain; background-repeat:no-repeat; background-position:center;
+    opacity:0;
+    will-change:transform, opacity;
+    animation: sakura-fall var(--dur, 18s) linear var(--delay, 0s) infinite;
   }
-  .petal.deep{ background: var(--sakura-deep); border-radius: 60% 0 60% 0; }
+  .petal.v1{ background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23F4A7BF'/%3E%3Cstop offset='1' stop-color='%23FFE6EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M12 23C5.5 18 1.5 11.5 4.5 5.5 6.3 2.2 9.8 2.6 12 6.2 14.2 2.6 17.7 2.2 19.5 5.5 22.5 11.5 18.5 18 12 23Z' fill='url(%23g)'/%3E%3Cpath d='M12 21.5V9' stroke='%23EE95B1' stroke-width='.6' fill='none' opacity='.55'/%3E%3C/svg%3E"); }
+  .petal.v2{ background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23F9C4D4'/%3E%3Cstop offset='1' stop-color='%23FFF3F7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M12 23C5.5 18 1.5 11.5 4.5 5.5 6.3 2.2 9.8 2.6 12 6.2 14.2 2.6 17.7 2.2 19.5 5.5 22.5 11.5 18.5 18 12 23Z' fill='url(%23g)'/%3E%3Cpath d='M12 21.5V9' stroke='%23F2A9C0' stroke-width='.6' fill='none' opacity='.5'/%3E%3C/svg%3E"); }
+  .petal.v3{ background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23EE8FB0'/%3E%3Cstop offset='1' stop-color='%23FFD3E0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M12 23C5.5 18 1.5 11.5 4.5 5.5 6.3 2.2 9.8 2.6 12 6.2 14.2 2.6 17.7 2.2 19.5 5.5 22.5 11.5 18.5 18 12 23Z' fill='url(%23g)'/%3E%3Cpath d='M12 21.5V9' stroke='%23E57A9E' stroke-width='.6' fill='none' opacity='.5'/%3E%3C/svg%3E"); }
+  .petal.far{ filter:blur(1.6px); }
   @keyframes sakura-fall{
-    0%{ transform: translateY(-10vh) translateX(0) rotate(0deg); }
-    50%{ transform: translateY(50vh) translateX(26px) rotate(180deg); }
-    100%{ transform: translateY(112vh) translateX(-18px) rotate(360deg); }
+    0%{   transform:translate3d(0,-8vh,0) rotate(var(--r0,0deg)) rotateY(0deg); opacity:0; }
+    8%{   opacity:var(--op,.8); }
+    30%{  transform:translate3d(var(--sway,60px),28vh,0) rotate(calc(var(--r0,0deg) + 110deg)) rotateY(120deg); }
+    60%{  transform:translate3d(calc(var(--sway,60px) * -0.6),62vh,0) rotate(calc(var(--r0,0deg) + 230deg)) rotateY(260deg); }
+    92%{  opacity:var(--op,.8); }
+    100%{ transform:translate3d(calc(var(--sway,60px) * 0.8),112vh,0) rotate(calc(var(--r0,0deg) + 360deg)) rotateY(360deg); opacity:0; }
   }
+  /* 모션 줄이기 설정 시: 움직이지 않고 꽃잎이 흩뿌려진 모습으로 표시 */
   @media (prefers-reduced-motion: reduce){
-    .petals{ display:none; }
+    .petal{ animation:none; top:var(--top-static, 20%); opacity:var(--op, .7); transform:rotate(var(--r0, 0deg)); }
   }
 
   a{ color:inherit; text-decoration:none; }
@@ -84,26 +92,35 @@
   /* ---------- Header ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:100;
-    background:rgba(241,238,227,0.88);
+    background:rgba(253,251,245,0.86);
     backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
   .nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding:18px 32px; max-width:1080px; margin:0 auto;
+    padding:14px 32px; max-width:1080px; margin:0 auto;
   }
   .logo{
-    font-family:'Noto Serif KR', serif; font-weight:700; font-size:19px;
-    display:flex; align-items:baseline; gap:6px;
+    font-family:'Noto Serif KR', serif; font-weight:700;
+    display:flex; align-items:baseline; gap:8px;
   }
-  .logo .jp{ color:var(--seal); font-size:17px; }
-  nav ul{ display:flex; gap:36px; list-style:none; }
-  nav ul li a{
+  .logo .jp{ color:var(--seal); font-size:24px; }
+  .brand-grad{
+    font-family:'Playfair Display','Noto Serif KR',serif; font-style:italic; font-weight:800;
+    background:linear-gradient(100deg, var(--brand-a) 0%, var(--brand-b) 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:var(--brand-a); -webkit-text-fill-color:transparent;
+  }
+  .logo .brand{ font-size:27px; line-height:1.3; letter-spacing:-0.01em; padding-right:4px; padding-bottom:2px; }
+  .logo .suffix{ font-size:16px; font-weight:700; color:var(--ink); }
+  .nav ul{ display:flex; gap:36px; list-style:none; }
+  .nav ul li a{
     font-size:14.5px; font-weight:500; color:var(--ink-soft);
     transition:color .25s;
     position:relative;
   }
-  nav ul li a:hover{ color:var(--ink); }
+  .nav ul li a:hover{ color:var(--ink); }
   .nav-cta{
     font-size:13.5px; font-weight:700; padding:10px 20px;
     border:1px solid var(--ink); border-radius:var(--radius);
@@ -118,8 +135,8 @@
     position:relative;
     padding:168px 32px 120px;
     background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      linear-gradient(rgba(184,147,90,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(184,147,90,0.10) 1px, transparent 1px);
     background-size: 42px 42px;
     background-position: center top;
     overflow:hidden;
@@ -130,16 +147,26 @@
     position:absolute;
     right:-40px; top:40px;
     font-size:clamp(280px, 38vw, 460px);
-    color:var(--ink);
-    opacity:0.045;
+    color:var(--gold);
+    opacity:0.12;
     line-height:1;
     pointer-events:none;
     transform:rotate(4deg);
   }
   .hero-inner{ max-width:1080px; margin:0 auto; position:relative; }
+  .brand-mark{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:12px; }
+  .brand-name{
+    font-size:clamp(44px, 10vw, 84px); line-height:1.05; letter-spacing:-0.02em;
+    padding:0 .08em .1em 0;
+    filter:drop-shadow(0 6px 16px rgba(111,127,203,0.14));
+  }
+  .brand-sub{
+    font-family:'Noto Serif KR', serif; font-weight:700;
+    font-size:clamp(20px, 3.4vw, 32px); color:var(--ink-soft); letter-spacing:.04em;
+  }
   .hero .eyebrow{ margin-bottom:22px; display:block; }
   .hero h1{
-    font-size:clamp(34px, 5.2vw, 60px);
+    font-size:clamp(28px, 4.4vw, 48px);
     font-weight:900;
     line-height:1.32;
     letter-spacing:-0.01em;
@@ -242,7 +269,7 @@
     display:flex; flex-direction:column; justify-content:space-between;
     transition:background .3s;
   }
-  .service-card:hover{ background:var(--paper-deep); }
+  .service-card:hover{ background:#fff; }
   .service-card .jp{ font-size:26px; color:var(--seal); margin-bottom:18px; display:block; }
   .service-card h3{ font-size:16.5px; font-weight:700; margin-bottom:8px; }
   .service-card p{ font-size:13.5px; color:var(--ink-soft); }
@@ -300,7 +327,7 @@
   }
 
   @media (max-width: 860px){
-    nav ul{ display:none; }
+    .nav ul{ display:none; }
     .about-grid{ grid-template-columns:1fr; }
     .about-portrait{ max-width:220px; }
     .services-grid{ grid-template-columns:1fr 1fr; }
@@ -309,8 +336,14 @@
   }
   @media (max-width: 520px){
     .services-grid{ grid-template-columns:1fr; }
-    .hero{ padding-top:140px; }
+    .hero{ padding-top:128px; }
     .process-item{ grid-template-columns:1fr; gap:6px; }
+    .nav{ padding:12px 16px; }
+    .logo{ gap:6px; }
+    .logo .jp{ font-size:20px; }
+    .logo .brand{ font-size:22px; }
+    .logo .suffix{ font-size:14px; }
+    .nav-cta{ padding:9px 12px; font-size:12.5px; }
   }
 </style>
 </head>
@@ -321,7 +354,7 @@
 
 <header>
   <div class="nav">
-    <div class="logo"><span class="jp">橋</span>J-bridge 통역</div>
+    <div class="logo"><span class="jp">橋</span><span class="brand brand-grad">J-bridge</span><span class="suffix">통역</span></div>
     <ul>
       <li><a href="#about">소개</a></li>
       <li><a href="#services">서비스</a></li>
@@ -334,11 +367,15 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="eyebrow">J-BRIDGE 통역 · JAPANESE ↔ KOREAN</span>
+    <div class="brand-mark">
+      <span class="brand-name brand-grad">J-bridge</span>
+      <span class="brand-sub">통역</span>
+    </div>
+    <span class="eyebrow">JAPANESE ↔ KOREAN INTERPRETER</span>
     <h1>두 언어 사이,<br>마음까지 건너는 <span class="accent">다리</span></h1>
     <div class="hero-jp-row">
       <span class="bar"></span>
-      <span class="jp">言葉と心をつなぐ橋 — J-bridge 通訳</span>
+      <span class="jp">言葉と心をつなぐ橋</span>
     </div>
     <p class="lead">
       J-bridge 통역은 비즈니스 미팅부터 컨퍼런스, 동행 통역까지 — 상황에 맞는 정확한 언어와 태도로
@@ -542,7 +579,7 @@
 </section>
 
 <footer>
-  © 2026 J-bridge 통역 · 곽보경 · Japanese–Korean Interpreter
+  © 2026 <span class="brand-grad" style="font-size:16px;padding-right:3px;">J-bridge</span> 통역 · 곽보경 · Japanese–Korean Interpreter
 </footer>
 
 <script>
@@ -565,22 +602,30 @@
 
   // 은은한 벚꽃잎 배경
   (function(){
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const holder = document.getElementById('petals');
-    if(reduce || !holder) return;
-    const count = 12;
-    for(let i=0;i<count;i++){
+    if(!holder) return;
+    const small = window.innerWidth < 600;
+    const near = small ? 18 : 30;   // 선명한 꽃잎
+    const far = small ? 4 : 7;      // 멀리 있는 듯 흐릿하고 큰 꽃잎
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const make = (isFar) => {
       const p = document.createElement('div');
-      p.className = 'petal' + (i % 2 === 0 ? '' : ' deep');
-      const size = 7 + Math.random()*9;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.left = Math.random()*100 + '%';
-      p.style.animationDuration = (16 + Math.random()*12) + 's';
-      p.style.animationDelay = (Math.random()*-24) + 's';
-      p.style.opacity = 0.22 + Math.random()*0.28;
+      const v = 'v' + (1 + Math.floor(Math.random() * 3));
+      p.className = 'petal ' + v + (isFar ? ' far' : '');
+      const size = isFar ? rnd(26, 42) : rnd(11, 22);
+      const dur = isFar ? rnd(26, 38) : rnd(14, 26);
+      p.style.setProperty('--size', size.toFixed(1) + 'px');
+      p.style.setProperty('--left', rnd(-2, 100).toFixed(1) + '%');
+      p.style.setProperty('--dur', dur.toFixed(1) + 's');
+      p.style.setProperty('--delay', (-Math.random() * dur).toFixed(1) + 's');
+      p.style.setProperty('--sway', rnd(30, 120).toFixed(0) * (Math.random() < 0.5 ? -1 : 1) + 'px');
+      p.style.setProperty('--r0', rnd(0, 360).toFixed(0) + 'deg');
+      p.style.setProperty('--op', (isFar ? rnd(0.30, 0.45) : rnd(0.60, 0.92)).toFixed(2));
+      p.style.setProperty('--top-static', rnd(2, 96).toFixed(1) + '%');
       holder.appendChild(p);
-    }
+    };
+    for(let i = 0; i < near; i++) make(false);
+    for(let i = 0; i < far; i++) make(true);
   })();
 
   // 스크롤 리빌
